@@ -18,6 +18,9 @@ pip install docxtpl
 ``<br>
 ``
 pip install docx2pdf
+`` <br>
+``
+pip install pdfjinja
 ``
 
 ## License
