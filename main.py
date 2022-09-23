@@ -1,19 +1,26 @@
 # -*- coding: utf-8 -*-
-import os
-from docxtpl import DocxTemplate
+import get_date
+from letter_gen import multi_risk_gen, civil_risk_gen
 from pdfjinja import PdfJinja
-from datetime import date
 import batch_pdf
 
-doc = DocxTemplate('./templates/letters/Carta INS Remision MR.docx')
-project = {'dd_mm_yy': '11/11/1111', 'project_name': 'foobar', 'project_code': '1111'}
-doc.render(project)
-doc.save('./templates/letters/new doc.docx')
+# -*- start: globals -*-
+today = get_date.slash_date
+path = './Deadline/Atesa/'
+date_sl = dict(date_s=get_date.str_date())
+# -*- end: globals -*-
 
-# batch_pdf.batch_convert()
-current_date = date.today()
-slash_date = current_date.strftime("%d/%m/%Y")
-date_sl = dict(date_s=slash_date)
+
+letter_data = [
+    input('Project name: '),
+    input('Project code: '),
+    input('Construction meters: '),
+    input('Panel quantity:'),
+    input('Panel brand: '),
+    input('Panel potency: '),
+    input('Inverter quantity: '),
+    input('Inverter brand: ')
+]
 
 
 def voucher_gen():
@@ -23,6 +30,11 @@ def voucher_gen():
     riesgocivil = PdfJinja('./templates/comprobante de entrega RCG.pdf')
     pdfout2 = riesgocivil(date_sl)
     pdfout2.write(open('comprobante rcg.pdf', 'wb'))
+    return
 
 
-return
+multi_risk_gen(path, letter_data, today)
+civil_risk_gen(path, letter_data, today)
+
+# You should convert your files to pdf as the last step
+batch_pdf.batch_convert(path)

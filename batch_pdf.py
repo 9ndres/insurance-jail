@@ -1,7 +1,7 @@
 from docx2pdf import convert
 
 
-def batch_convert():
-    convert('templates/letters')
+def batch_convert(path):
+    convert(path)
     return
 
