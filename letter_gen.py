@@ -1,19 +1,19 @@
 from docxtpl import DocxTemplate
-
+# https://pypi.org/project/docxtpl/
 
 def multi_risk_gen(current_path, l_d, date):
-    path_multi_risk = '.\carta mr.docx'
+    path_multi_risk = '.\\templates\carta mr.docx'
     doc = DocxTemplate(path_multi_risk)
     project = {'dd_mm_yy': date,
                 'project_name': l_d['project_name'], 
                 'project_code': l_d['project_code']}
     doc.render(project)
-    doc.save(current_path + 'carta mr.docx')
+    doc.save(current_path + 'Carta de Inclusión {project}.docx'.format(project=l_d['project_name']))
     return
 
 
 def civil_risk_gen(current_path, l_d, date):
-    path_civil_risk = '.\carta rcg.docx'
+    path_civil_risk = '.\\templates\carta rcg.docx'
     doc = DocxTemplate(path_civil_risk)
     project = {'dd_mm_yy': date,
                'project_name': l_d['project_name'],
@@ -27,5 +27,5 @@ def civil_risk_gen(current_path, l_d, date):
                'constt': l_d['constt']
                }
     doc.render(project)
-    doc.save(current_path + 'carta rcg.docx')
+    doc.save(current_path + 'Carta de Inclusión RCG {project}.docx'.format(project=l_d['project_name']))
     return
